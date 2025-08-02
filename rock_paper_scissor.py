@@ -3,30 +3,40 @@ import random
 game_selection = ['r', 'p', 's']
 emojis = {'r': '🪨', 'p': '📃', 's': '✄'}
 
-def playgame():
+def play_game():
     while True:
-        computer_chose = random.choice(game_selection)
-        print(computer_chose)
-        command = input("Rock, paper, scissors? (r/p/s): ").lower()
-        if command not in game_selection:
-            print("Invalid choice!")
-            continue
-        print(f"You chose {emojis[command]}")
-        print(f"Computer chose {emojis[computer_chose]}")
-        print(result(command, computer_chose))
+        computer_choice = random.choice(game_selection)
+        user_choice = get_user_choice()
+        display_selection(user_choice, computer_choice)
+        result(user_choice, computer_choice)
         playmore = input("Continue? (y/n): ").lower()
         if playmore == 'n':
             break
 
-def result(command, computer_chose):
-    if command == computer_chose:
-        return "It's a tie"
-    elif ((command == 'r' and computer_chose == 's') 
-        or (command == 's' and computer_chose == 'p') 
-        or (command == 'p' and computer_chose == 'r')):
-        return "You win"
+def get_user_choice():
+    while True:
+        user_choice = input("Rock, paper, scissors? (r/p/s): ").lower()
+        if user_choice in game_selection:
+            return user_choice
+        else:
+            print("Invalid choice!")
+            continue
+
+def display_selection(user_choice, computer_choice):
+    print(f"You chose {emojis[user_choice]}")
+    print(f"Computer chose {emojis[computer_choice]}")
+
+def result(user_choice, computer_choice):
+    if user_choice == computer_choice:
+        print("It's a tie")
+    elif ((user_choice == 'r' and computer_choice == 's') 
+        or (user_choice == 's' and computer_choice == 'p') 
+        or (user_choice == 'p' and computer_choice == 'r')):
+        print("You win")
     else:
-        return "You lose"
+        print("You lose")
     
-if __name__ == "__main__":
-    playgame()
+play_game()
+
+# if __name__ == "__main__":
+#     play_game()
